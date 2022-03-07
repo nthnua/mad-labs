@@ -1,19 +1,10 @@
 package com.example.mad1;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Toast;
+import android.view.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,28 +13,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View c = findViewById(R.id.c);
+        registerForContextMenu(c);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater m = getMenuInflater();
         m.inflate(R.menu.m1,menu);
-        return super.onCreateOptionsMenu(menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        View c = findViewById(R.id.c);
         switch (item.getItemId()){
             case R.id.i1:
-                Intent i1 = new Intent(this,MainActivity2.class);
-                startActivity(i1);
+                c.setBackgroundColor(Color.rgb(0,255,0));
                 break;
             case R.id.i2:
-                Intent i2 = new Intent(this,MainActivity3.class);
-                startActivity(i2);
+                c.setBackgroundColor(Color.rgb(200,0,0));
                 break;
+            case R.id.i3:
+                Random r = new Random();
+                c.setBackgroundColor(Color.rgb(r.nextInt(256),r.nextInt(256),r.nextInt(256)));
         }
-        return super.onOptionsItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 
 }
